@@ -67,18 +67,18 @@ export default{
     async deleteUser(req:Request, res:Response) {
 
         try {
-            // const { id } = req.params 
-            // const userExist = await prisma.user.findMany({
-            //     select : {
-            //         id : true
-            //     }
-            // })
-            // if (!userExist) {
-            //     return res.json({
-            //         error:true,
-            //         message : 'User nao encontrado',
-            //     })
-            // }
+            const { id } = req.params 
+            const userExist = await prisma.user.findMany({
+                select : {
+                    id : true
+                }
+            })
+            if (!userExist) {
+                return res.json({
+                    error:true,
+                    message : 'User nao encontrado',
+                })
+            }
             const user = await prisma.user.delete({
                 where :{
                     id:Number(req.params.id)
