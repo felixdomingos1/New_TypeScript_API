@@ -76,8 +76,7 @@ export default{
     async deletePost(req:Request, res:Response) {
 
         try {
-            const { id , authorId} = req.params 
-            const userExist = await prisma.user.findUnique({where:{ id : Number(authorId) }})
+            const { id } = req.params 
             const postExist = await prisma.post.findUnique({where:{ id : Number(id) }})
             if (!postExist) {
                 return res.json({
