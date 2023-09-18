@@ -11,6 +11,10 @@ app.get('/', (req, res)=>{
     return res.status(200).send({message:'Eu vou'}) 
 });
 app.post('/creatingUser', UserController.createUser)
+
+
 app.post('/creatingPost', PostController.createPost)
+app.get('/gettingPost/:id', PostController.listPost)
+app.put('/updatingPost/', PostController.updatePost)
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
