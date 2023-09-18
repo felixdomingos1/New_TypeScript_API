@@ -5,6 +5,13 @@ export default{
     async createPost(req:Request, res:Response) {
         try {
             const { title, content, authorId} = req.body 
+            const userExist = await prisma.user.findUnique({where:{ id : Number(authorId) }})
+            if (!userExist) {
+                return res.json({
+                    error: true,
+                    message : 'Post na0 Cadastrad0 user na0 existe',
+                })
+            }
             const post = await prisma.post.create({
                 data:{
                     title,
@@ -60,6 +67,32 @@ export default{
             return res.json({
                 error:false,
                 message : 'sucess0 : Post atualizado',
+                post
+            })
+        } catch (error) {
+            res.json({message : error.message})
+        }
+    },
+    async deletePost(req:Request, res:Response) {
+
+        try {
+            const { id , authorId} = req.params 
+            const userExist = await prisma.user.findUnique({where:{ id : Number(authorId) }})
+            const postExist = await prisma.post.findUnique({where:{ id : Number(id) }})
+            if (!postExist) {
+                return res.json({
+                    error:true,
+                    message : 'Post nao encontrado',
+                })
+            }
+            const post = await prisma.post.delete({
+                where :{
+                    id:Number(req.params.id)
+                }
+            })
+            return res.json({
+                error:false,
+                message : 'sucess0 : Post deletado',
                 post
             })
         } catch (error) {

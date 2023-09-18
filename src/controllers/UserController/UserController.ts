@@ -22,5 +22,20 @@ export default{
         } catch (error) {
             res.json({message : error.message})
         }
+    }, async listUser(req:Request, res:Response) {
+        try {
+            const { id } = req.params
+            const userExist = await prisma.user.findUnique({where:{ id:Number(id) }});
+            if(!userExist) { 
+                return res.json({message : 'User na0 Existe'})
+            }
+            return res.json({
+                error : false,
+                message : 'User enc0ntrad0',
+                userExist
+            })
+        } catch (error) {
+            res.json({message : error.message})
+        }
     }
 }
