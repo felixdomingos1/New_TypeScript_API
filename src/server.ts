@@ -7,13 +7,15 @@ const app = express()
 const PORT = 3001;
 
 app.use(express.json());
+
 app.get('/', (req, res)=>{
     return res.status(200).send({message:'Eu vou'}) 
 });
+
 app.post('/creatingUser', UserController.createUser)
 app.get('/findUser/:id', UserController.listUser)
 app.put('/updatingUser', UserController.updateUser)
-app.delete('/deleteUser', UserController.deleteUser)
+app.delete('/deleteUser/:authorId', UserController.deleteUser)
 
 
 app.post('/creatingPost', PostController.createPost)
