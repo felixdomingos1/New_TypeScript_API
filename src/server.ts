@@ -12,6 +12,7 @@ app.get('/', (req, res)=>{
 });
 app.post('/creatingUser', UserController.createUser)
 app.get('/findUser/:id', UserController.listUser)
+app.put('/updatingUser', UserController.updateUser)
 
 
 app.post('/creatingPost', PostController.createPost)
